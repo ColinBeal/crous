@@ -19,11 +19,12 @@
 
       if ($_POST["submit"]=="enregistrement")
       {
-        $sql = "INSERT INTO utilisateurs (login, pass) VALUES ('" .$_POST["login"]. "','" .$_POST["password"]. "')";
+        $hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        $sql = "INSERT INTO utilisateurs (login, pass) VALUES ('".$_POST["login"]."','".$hash."')";
         if($result2 = mysqli_query($conn, $sql))
         {
           $_SESSION["login"] = $_POST["login"];
-          $_SESSION["password"] = $_POST["password"];
+          $_SESSION["password"] = $hash;
           $_SESSION["type"] = "etudiant";
           header('Location: ?');
           exit;
@@ -37,16 +38,32 @@
 
       if($_POST["submit"]=="connexion")
       {
-        $sql = "SELECT id, type FROM utilisateurs WHERE login='".$_POST["login"]."' AND pass='".$_POST["password"]."'";
+        $sql = "SELECT pass FROM utilisateurs WHERE login='".$_POST["login"];
         $result2 = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result2)>0)
         {
           $row2 = mysqli_fetch_assoc($result2);
-          $_SESSION["login"] = $_POST["login"];
-          $_SESSION["password"] = $_POST["password"];
-          $_SESSION["type"] = $row2["type"];
-          header('Location: ?');
-          exit;
+          $hash = $row2["pass"];
+          if (password_verify($_POST["password"], $hash))
+          {
+            $sql = "SELECT id, type FROM utilisateurs WHERE login='".$_POST["login"];
+            $result2 = mysqli_query($conn, $sql);
+            if(mysqli_num_rows($result2)>0)
+            {
+              $row2 = mysqli_fetch_assoc($result2);
+              $_SESSION["login"] = $_POST["login"];
+              $_SESSION["password"] = $hash;
+              $_SESSION["type"] = $row2["type"];
+              header('Location: ?');
+              exit;
+            }
+            else
+            {
+              header('Location: ?log=nonex');
+              exit;
+            }
+            mysqli_close($conn);
+          }
         }
         else
         {
