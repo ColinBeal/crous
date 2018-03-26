@@ -40,11 +40,15 @@
   include "all.php";
 ?>
 </div>
+<<<<<<< HEAD
 	    <?php
     if($_SESSION['type'] == 'admin')
     {
         include 'tableauAdmin.php';
     }
 ?>
+=======
+
+>>>>>>> 2c67de03a1803a2dbefc340ea1616297ba106535
 </div>
 </body>
