@@ -51,5 +51,10 @@
           <h2> Mes Infos </h2>
 
 </div>
+<?php
+
+  include 'tableauAdmin.php';
+
+?>
 </div>
     </body>
