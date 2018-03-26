@@ -71,7 +71,7 @@
 
 if(isset($_SESSION['type']) && $_SESSION['type'] == 'admin')
 {
-    include 'tableauAdmin.php';
+    include 'tableauAdminBtn.php';
 }
 
 
