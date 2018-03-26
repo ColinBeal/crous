@@ -1,0 +1,59 @@
+body, html
+{
+  color: grey;
+  font-family: 'Montserrat 400', sans-serif;
+}
+
+a{
+  color: grey !important;
+  font-family: 'Montserrat 400', sans-serif;
+}
+
+.barrenav{
+  margin-top: 10px;
+}
+
+
+.jaune{
+  background-color: #FFE74C;
+  color: black;
+
+  margin-right: 5%;
+  height: 300px;
+}
+h2 {font-family: 'Montserrat 900', sans-serif;
+    font-size: 150%}
+
+
+.bleuf{
+  background-color: #38618C;
+  color: #fff;
+  margin-left: 5%;
+  margin-right: 10px;
+  height: 300px;
+}
+
+
+
+
+img{
+  margin: 15px;
+}
+.connexion{
+  margin-top: 5%;
+  padding: 15px;
+
+  font-size: 85%;
+  text-align: center;
+  background-color: #ffffff;
+
+}
+h4{
+  padding-top: 75px;
+
+}
+.btn-primary {
+  color: #fff;
+  background-color: #FF5964 !important;
+  border-color: #FF5964 !important;
+}
