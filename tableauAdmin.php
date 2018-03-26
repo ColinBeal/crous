@@ -1,5 +1,4 @@
 <?php
-
     $query = "select * from utilisateurs where type = 'etudiant'";
     $result = mysqli_query($conn,$query);
     echo '<table class="table"><thead><tr><th>Etudiant</th><th>Date de naissance</th><th>Email</th></tr></thead><tbody>';

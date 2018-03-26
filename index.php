@@ -41,7 +41,7 @@
 ?>
 </div>
 	    <?php
-    if($_SESSION['type'] == 'admin')
+    if(isset($_SESSION['type']) && $_SESSION['type'] == 'admin')
     {
         include 'tableauAdmin.php';
     }

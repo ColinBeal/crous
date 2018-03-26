@@ -1,8 +1,16 @@
 <?php
   session_start();
 
-  include "checkreset.php";
-  include 'connectdb.php' ;
+  if (isset($_SESSION["login"]) && isset($_SESSION["type"]))
+  {
+    include "checkreset.php";
+    include 'connectdb.php' ;
+  }
+  else
+  {
+    header('Location: index.php');
+    exit;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +46,15 @@
       <div class="col-md-7 col-sm-hidden col-xs-hidden nav">
       </div>
         <div class="col-md-2 col-sm-hidden col-xs-hidden nav">
-        <a href="index.php">Déconnexion </a>
+        <?php
+          if (isset($_SESSION['type']) && isset($_SESSION['login']))
+          {
+            echo "
+                <form action='?reset=true' method='post'>
+                  <input type='submit' value='deconnexion'/>
+                </form>";
+          }
+        ?>
       </div>
     </div>
 
@@ -53,7 +69,12 @@
 </div>
 <?php
 
-  include 'tableauAdmin.php';
+if(isset($_SESSION['type']) && $_SESSION['type'] == 'admin')
+{
+    include 'tableauAdmin.php';
+}
+
+
 
 ?>
 </div>

@@ -1,7 +1,7 @@
 <?php
   $servername = "localhost";
   $username = "root";
-  $password = "root";
+  $password = "";
   $dbname = "crous";
 
 
@@ -11,5 +11,4 @@
   		{
   				die("Connection failed: " . mysqli_connect_error());
   		}
-
 ?>
