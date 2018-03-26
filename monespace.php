@@ -61,12 +61,16 @@
     <div class=" row">
       <div class="col-md-6 bleuf">
           <h2> Bonjour </h2>
-
+          <?php
+            include "bourse.php";
+           ?>
       </div>
         <div class="col-md-4 jaune">
           <h2> Mes Infos </h2>
-
-</div>
+          <?php
+            include 'mesinfos.php';
+          ?>
+        </div>
 <?php
 
 if(isset($_SESSION['type']) && $_SESSION['type'] == 'admin')
