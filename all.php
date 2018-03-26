@@ -73,11 +73,11 @@
       if(isset($_GET["log"]))
       {
         if($_GET["log"]=="allex")
-          echo "Ce login est déja utilisé";
+          echo "Erreur d'Enregistrement";
         if($_GET["log"]=="nonex")
-          echo "Ce compte n'existe pas ou mot de passe incorrect";
+          echo "Erreur de Connexion";
         if ($_GET["log"]=="nonaut") {
-          echo "Caracteres incorrects";
+          echo "Erreur de Connexion";
         }
       }
 
