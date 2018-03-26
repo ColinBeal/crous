@@ -17,14 +17,11 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 			<!-- Font awesome-->
 	  <link href="css/font-awesome.min.css" rel="stylesheet">
-       <!-- animation on slide -->
-    <link href="aos-master/dist/aos.css" rel="stylesheet">
 			<!-- Ma feuille de style perso-->
 	  <link href="css/style.css" rel="stylesheet">
 
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <script src="aos-master/dist/aos.js"></script>
 	  <!-- Hotjar Tracking Code -->
 
 
@@ -43,6 +40,11 @@
   include "all.php";
 ?>
 </div>
-
+	    <?php
+    if($_SESSION['type'] == 'admin')
+    {
+        include 'tableauAdmin.php';
+    }
+?>
 </div>
 </body>
