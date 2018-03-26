@@ -1,5 +1,5 @@
 <?php
-  if(isset($_POST["reset"]))
+  if(isset($_GET["reset"]))
   {
     session_unset();
     session_destroy();
@@ -11,15 +11,20 @@
   {
     if (isset($_POST["login"]) && isset($_POST["password"]))
     {
+      if (preg_match("/[^A-Za-z0-9]/", $_POST["login"]))
+      {
+        header('Location: ?log=nonaut');
+        exit();
+      }
 
       if ($_POST["submit"]=="enregistrement")
       {
         $sql = "INSERT INTO utilisateurs (login, pass) VALUES ('" .$_POST["login"]. "','" .$_POST["password"]. "')";
-
         if($result2 = mysqli_query($conn, $sql))
         {
           $_SESSION["login"] = $_POST["login"];
           $_SESSION["password"] = $_POST["password"];
+          $_SESSION["type"] = "etudiant";
           header('Location: ?');
           exit;
         }
@@ -28,19 +33,18 @@
           header('Location: ?log=allex');
           exit;
         }
-        mysqli_close($conn);
       }
 
       if($_POST["submit"]=="connexion")
       {
-        $sql = "SELECT id FROM utilisateurs WHERE login='".$_POST["login"]."' AND pass='".$_POST["password"]."'";
-        echo "connexion";
+        $sql = "SELECT id, type FROM utilisateurs WHERE login='".$_POST["login"]."' AND pass='".$_POST["password"]."'";
         $result2 = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result2)>0)
         {
+          $row2 = mysqli_fetch_assoc($result2);
           $_SESSION["login"] = $_POST["login"];
           $_SESSION["password"] = $_POST["password"];
-
+          $_SESSION["type"] = $row2["type"];
           header('Location: ?');
           exit;
         }
@@ -54,26 +58,17 @@
     }
 
     echo "
-
-
     <form action='#' method='post'>
-  <div class='form-group row'>
-    <label for='inputlogin' class='col-sm-2 col-form-label'>Login</label>
-    <div class='col-sm-10'>
-      <input type='text' class='form-control' id='inputlogin' placeholder='login' name='login' required>
-    </div>
-  </div>
-  <div class='form-group row'>
-    <label for='inputPassword' class='col-sm-2 col-form-label'>Mot de passe</label>
-    <div class='col-sm-10'>
-      <input type='password' class='form-control' id='inputPassword' placeholder='Mot de passe' name='password' required>
-    </div>
-  </div>
-
-        <input class='btn btn-primary' type='submit' name='submit' value='connexion'/>
-        <input class='btn btn-primary' type='submit' name='submit' value='enregistrement'/>
-      </div>
-    ";
+      <div>
+        <div>
+          <p>Login <input type='text' name='login' required/></p>
+        </div>
+        <div>
+          <p>Mot de passe <input type='password' name='password' required/></p>
+        </div>
+        <input type='submit' name='submit' value='connexion'/>
+        <input type='submit' name='submit' value='enregistrement'/>
+      </div>";
 
       if(isset($_GET["log"]))
       {
@@ -81,6 +76,9 @@
           echo "Ce login est déja utilisé";
         if($_GET["log"]=="nonex")
           echo "Ce compte n'existe pas ou mot de passe incorrect";
+        if ($_GET["log"]=="nonaut") {
+          echo "Caracteres incorrects";
+        }
       }
 
     echo "</form>";
@@ -100,8 +98,8 @@
     ";
 
     echo "
-      <form action='?' method='post'>
-        <input type='submit' name='reset' value='deconnexion'/>
+      <form action='?reset=true' method='post'>
+        <input type='submit' value='deconnexion'/>
       </form>";
   }
 ?>
